@@ -6,7 +6,7 @@ with open("README.md") as f:
 
 setup(
     name='parq2csv',
-    version='0.1',
+    version='0.1.1',
     description="Command line tool to transform Apache Parquet files to CSV on the go",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,7 +26,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'parq = parq2csv.main:main',
+            'parq2csv = parq2csv.main:main',
         ]
     },
 )
