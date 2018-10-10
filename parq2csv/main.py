@@ -25,7 +25,7 @@ def write_data(parquet_file):
             data = r.read_row_group(i)
             sys.stdout.write(data.to_pandas().to_csv(header=write_header, index=False))
             write_header = False
-    except (BrokenPipeError, IOError):
+    except (BrokenPipeError, IOError, KeyboardInterrupt):
         # Broken pipe
         pass
     sys.stderr.close()
@@ -36,9 +36,9 @@ def main(cmd_args=sys.argv, skip=False):
         cmd_args = init_args()
 
     if cmd_args.schema:
-        print("\n # Schema \n", get_schema(cmd_args.file))
+        print(get_schema(cmd_args.file))
     if cmd_args.metadata:
-        print("\n # Metadata \n", get_metadata(cmd_args.file))
+        print(get_metadata(cmd_args.file))
     else:
         write_data(cmd_args.file)
 
@@ -53,7 +53,7 @@ def init_args():
 
     group.add_argument("-s",
                        "--schema",
-                       nargs="?",
+                       nargs=None,
                        type=bool,
                        const=True,
                        help="get schema information",
@@ -61,7 +61,7 @@ def init_args():
 
     group.add_argument("-m",
                        "--metadata",
-                       nargs="?",
+                       nargs=None,
                        type=bool,
                        const=True,
                        help="get metadata information",
