@@ -34,7 +34,10 @@ def write_data(parquet_file):
     sys.stderr.close()
 
 
-def main(cmd_args):
+def main(cmd_args=sys.argv, skip=False):
+    if not skip:
+        cmd_args = init_args()
+
     if cmd_args.schema:
         print(get_schema(cmd_args.file))
     elif cmd_args.metadata:
@@ -43,7 +46,7 @@ def main(cmd_args):
         write_data(cmd_args.file)
 
 
-def init_args(args=sys.argv):
+def init_args():
     parser = argparse.ArgumentParser(
         description="Command line tool to convert Apache Parquet files to CSV",
         usage="usage: parq2csv file [--schema | --metadata]"
@@ -74,5 +77,5 @@ def init_args(args=sys.argv):
 
 if __name__ == '__main__':
     args = init_args()
-    main(args)
+    main(args, skip=True)
 
