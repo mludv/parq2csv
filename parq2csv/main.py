@@ -55,7 +55,6 @@ def init_args():
                        "--schema",
                        nargs=None,
                        type=bool,
-                       const=True,
                        help="get schema information",
                        )
 
@@ -63,7 +62,6 @@ def init_args():
                        "--metadata",
                        nargs=None,
                        type=bool,
-                       const=True,
                        help="get metadata information",
                        )
 
