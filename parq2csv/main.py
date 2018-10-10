@@ -8,16 +8,19 @@ import pyarrow.parquet as pq
 
 def get_metadata(parquet_file):
     r = pq.ParquetFile(parquet_file)
-    return r.metadata
+    rows = r.metadata.__repr__().split('\n')
+    rows = list(map(lambda x: x.lstrip(), rows))
+    return '\n'.join(rows[1:]) # skip first line
 
 
 def get_schema(parquet_file):
     r = pq.ParquetFile(parquet_file)
-    return r.schema
+    rows = r.schema.__repr__().split('\n')
+    rows = list(map(lambda x: x.lstrip(), rows))
+    return '\n'.join(rows[1:]) # skip first line
 
 
 def write_data(parquet_file):
-
     try:
         r = pq.ParquetFile(parquet_file)
         write_header = True
@@ -32,7 +35,6 @@ def write_data(parquet_file):
 
 
 def main(cmd_args):
-    print(cmd_args)
     if cmd_args.schema:
         print(get_schema(cmd_args.file))
     elif cmd_args.metadata:
